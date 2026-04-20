@@ -12,7 +12,7 @@ const Filters = ({ category, setCategory, sort, setSort }) => {
       </select>
 
       <select value={sort} onChange={(e) => setSort(e.target.value)}>
-        <option value="">Latest Created</option>
+        <option value="">Sort by date</option>
         <option value="date_desc">Newest First</option>
         <option value="date_asc">Oldest First</option>
         </select>
