@@ -10,7 +10,7 @@ app.use(cors({
   origin: [
     'http://localhost:5173',
     'http://localhost:5174',
-    'https://fenmo-assignment-sde.vercel.app/'
+    'https://fenmo-assignment-sde.vercel.app'
   ]
 }));app.use(express.json());
 app.use(morgan('dev'));
