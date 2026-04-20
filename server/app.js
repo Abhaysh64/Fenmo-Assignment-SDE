@@ -6,8 +6,13 @@ const expenseRoutes = require('./routes/expenses');
 
 const app = express();
 
-app.use(cors());
-app.use(express.json());
+app.use(cors({
+  origin: [
+    'http://localhost:5173',
+    'http://localhost:5174',
+    'https://fenmo-assignment-sde.vercel.app/'
+  ]
+}));app.use(express.json());
 app.use(morgan('dev'));
 
 app.use('/expenses', expenseRoutes);
