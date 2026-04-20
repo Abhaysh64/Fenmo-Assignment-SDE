@@ -12,8 +12,25 @@ app.use(morgan('dev'));
 
 app.use('/expenses', expenseRoutes);
 
+app.use((err, req, res, next) => {
+  console.error(err);
+
+  res.status(500).json({
+    error: 'Internal server error',
+  });
+});
+
+
 app.get('/', (req, res) => {
   res.send('Expense Tracker API running');
+});
+
+
+app.get('/health', (req, res) => {
+  res.json({
+    status: 'ok',
+    service: 'expense-tracker-api',
+  });
 });
 
 module.exports = app;
