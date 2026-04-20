@@ -1,25 +1,20 @@
-const sqlite3 = require('sqlite3').verbose();
+const Database = require('better-sqlite3');
 const path = require('path');
 
-const dbPath =
-  process.env.NODE_ENV === 'test'
-    ? ':memory:'
-    : path.join(process.cwd(), 'expenses.db');
+const dbPath = path.join(process.cwd(), 'expenses.db');
 
-const db = new sqlite3.Database(dbPath);
+const db = new Database(dbPath);
 
-db.serialize(() => {
-  db.run(`
-    CREATE TABLE IF NOT EXISTS expenses (
-      id TEXT PRIMARY KEY,
-      amount INTEGER NOT NULL,
-      category TEXT NOT NULL,
-      description TEXT,
-      date TEXT NOT NULL,
-      created_at TEXT NOT NULL,
-      idempotency_key TEXT UNIQUE
-    )
-  `);
-});
+db.prepare(`
+  CREATE TABLE IF NOT EXISTS expenses (
+    id TEXT PRIMARY KEY,
+    amount INTEGER NOT NULL,
+    category TEXT NOT NULL,
+    description TEXT,
+    date TEXT NOT NULL,
+    created_at TEXT NOT NULL,
+    idempotency_key TEXT UNIQUE
+  )
+`).run();
 
 module.exports = db;
